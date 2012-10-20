@@ -1,3 +1,4 @@
- # eCommerce Application
+#eCommerce Application
+---
 
-A simple java eCommerse Application written for CSc4350 at GSU for Proffesor Bhola.  
+A Java eCommerse Application written for CSc4350 at GSU for Professor Bhola.
