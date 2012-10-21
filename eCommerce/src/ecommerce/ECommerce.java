@@ -23,10 +23,14 @@ public class ECommerce extends JFrame
     private HeaderPanel header;
     private NavigationPanel navigation;
     
+    //Globals
     public static EComData myData;
+    public static User currentUser;
 
     public ECommerce()
     {
+        myData = new EComData();
+        
         //Application Title
         setTitle("ECommerce Application");
         
@@ -54,86 +58,6 @@ public class ECommerce extends JFrame
         
         
         ECommerce go = new ECommerce();
-        
-        //Test of the data class and structures
-        
-        myData = new EComData();
-        
-        //Test of User class within object list
-        
-        LinkedList<User> allUsers = myData.getUserData();
-        
-        int index = 0;
-        
-        User myUser = allUsers.get(index);
-        
-        System.out.println("User Data:");
-        System.out.println(myUser.getEmail());
-        System.out.println(myUser.getFName());
-        System.out.println(myUser.getLName());
-        
-        //Test of Item class within object list
-        
-        LinkedList<Item> allItems = myData.getItemData();
-        LinkedList<Review> allReviews = myData.getReviewData();
-        
-        index = 0;
-        
-        Item myItem = allItems.get(index);
-        Review myReview = allReviews.get(index);
-        
-        System.out.println();
-        System.out.println("Item Data:");
-        System.out.println(myItem.getName());
-        System.out.println(myItem.getDescription());
-        System.out.println(myItem.getPrice());
-        System.out.println("Item Review: " + myReview.getReviewText());
-        
-        System.out.println();
-        System.out.println("Search for User:");
-        System.out.println("Searching for matt.folds@gmail.com");
-        
-        User mattUser = myData.queryUserData("matt.folds@gmail.com");
-        
-        System.out.println(mattUser.getFName() + " " + mattUser.getLName());
-        
-        User nullUser = myData.queryUserData("blahblah");
-        
-        if(nullUser == null)
-        {
-            System.out.println();
-            System.out.println("No record found");
-        }
-        else
-        {
-        System.out.println();
-        System.out.println(nullUser.getEmail());
-        }
-        
-        try
-        {
-            myData.writeRecord(mattUser, "user");
-        }
-        catch(EComException e)
-        {
-            System.out.println(e.getMessage());
-        }
-        
-        User newUser = new User();
-        newUser.setEmail("tom@gsu.edu");
-        newUser.setFName("Tom");
-        newUser.setLName("Sawyer");
-        newUser.setPassword("tSwayer");
-        newUser.setPasswordHint("First init and last name");
-        
-        try
-        {
-            myData.writeRecord(newUser, "user");
-        }
-        catch(EComException e)
-        {
-            System.out.println(e.getMessage());
-        }
         
         
     }

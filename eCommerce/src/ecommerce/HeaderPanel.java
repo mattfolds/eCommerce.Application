@@ -1,4 +1,4 @@
-/*
+/**
  * Class: HeaderPanel
  * 
  * Purpose:
@@ -9,22 +9,30 @@
  * Change Log:
  * Matt Folds 10/18/12 - Initial Development
  * 
+ * Matt Folds 10/20/12 - Added several methods to support sign-in, sign-out,
+ * and registering new users.
+ * 
  */
 package ecommerce;
 
-import javax.swing.*;
-import java.awt.*;
 import java.awt.event.*;
+import javax.swing.*;
 
 public class HeaderPanel extends JPanel
 {
     private JLabel logoLabel;
     private JButton registerButton;
-    private JButton signInOutButton;
+    private static JButton signInOutButton;
     private JTextField searchField;
     private JButton searchButton;
     private JButton cartButton;
-        
+    
+    private static SignInPanel signIn;
+    private static RegisterPanel register;
+
+    /**
+     * Constructor to build the controls for the panel for displaying on the ui
+     */
     public HeaderPanel()
     {
         //Create controls
@@ -35,7 +43,38 @@ public class HeaderPanel extends JPanel
         searchButton = new JButton("Search");
         cartButton = new JButton("Cart");
         
-        signInOutButton.addActionListener(new signInOutListener());
+        /**
+         * ActionListener for the registerButton that calls displayRegisterForm
+         */
+        registerButton.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                displayRegisterForm();
+            }
+        });
+        
+        /**
+         * ActionListener for sign-in / sign-out button calls displaySignInForm
+         * if there is no one currently signed in otherwise userSignOut is 
+         * called.
+         */
+        signInOutButton.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                if(signInOutButton.getText().equals("Sign In"))
+                {
+                    displaySignInForm();
+                }
+                else
+                {
+                    userSignOut();
+                }
+            }
+        });
         
         //Add controls to panel
         add(logoLabel);
@@ -44,13 +83,103 @@ public class HeaderPanel extends JPanel
         add(searchField);
         add(searchButton);
         add(cartButton);
+        
     }
     
-    private class signInOutListener implements ActionListener
+    /**
+     * Method called by SignInOutButton when clicked and a user is not currently
+     * signed in.  The method displays the SignInPanel for the user to enter
+     * their credentials
+     * 
+     */
+    private static void displaySignInForm()
     {
-        public void actionPerformed(ActionEvent e)
-        {
-            SignInPanel go = new SignInPanel();
-        }
+        ECommerce.currentUser = null;
+        signIn = new SignInPanel();
     }
+    
+    /**
+     * Method called by SignInPanel to close the SignIn Form when the user is
+     * presses the cancel key.
+     * 
+     */
+    public static void closeSignInForm()
+    {
+        signIn.dispose();   
+    }
+    
+    /**
+     * Method called by SignInPanel to close the SignInForm when the user is
+     * validated.  This method is also responsible to setting the global
+     * variable for the current user that is signed in.
+     * 
+     * @param myUser Instance of User class of the current user signed in
+     */
+    public static void closeSignInForm(User myUser)
+    {
+        ECommerce.currentUser = myUser;
+        
+        signIn.dispose();
+        
+        userSignIn();        
+    }
+     
+    /**
+     * Method called by registerButton ActionListener to display the new user 
+     * register form.
+     * 
+     */   
+    private void displayRegisterForm()
+    {
+        ECommerce.currentUser = null;
+        register = new RegisterPanel();
+    }
+    
+    /**
+     * Method called by SignInPanel to close the new user 
+     * register form when cancel button is clicked
+     * 
+     */ 
+    public static void closeRegisterForm()
+    {
+        register.dispose();
+    }    
+    
+    /**
+     * Method called by SignInPanel to close the new user register form when ok
+     * button is clicked and to call user SignIn method
+     * 
+     * @param newUser Instance of User class of the newly registered user
+     * 
+     */ 
+    public static void closeRegisterForm(User newUser)
+    {
+        ECommerce.currentUser = newUser;
+        
+        register.dispose();
+        
+        userSignIn();
+    }
+    
+    /**
+     * Method called by closeSignInForm and closeRegisterForm to change the text
+     * of the sign-in button to sign-out
+     */     
+    private static void userSignIn()
+    {
+        signInOutButton.setText("Sign Out");
+    }
+
+    /**
+     * Method called by SignInOutButton when clicked and a user is signed in.
+     * The method clears the currentUser GLOBAL variable and sets text on the
+     * sign-out button to sign-in.
+     */  
+    private static void userSignOut()
+    {
+        ECommerce.currentUser = null;
+        
+        signInOutButton.setText("Sign In");
+    }
+    
 }
