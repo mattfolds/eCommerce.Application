@@ -10,15 +10,11 @@
  */
 package ecommerce;
 
-import java.util.*;
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
 
 public class ECommerce extends JFrame
 {
-
-    private final int WINDOW_WIDTH = 1024;
-    private final int WINDOW_HEIGHT = 768;
     
     private HeaderPanel header;
     private NavigationPanel navigation;
@@ -34,19 +30,35 @@ public class ECommerce extends JFrame
         //Application Title
         setTitle("ECommerce Application");
         
-        setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+        setSize(new Dimension(800,750));
+        
+        setResizable(false);
         
         //Setup application close op
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
+        GridBagLayout gb = new GridBagLayout();
+        
         //Application panel layout
-        setLayout(new BorderLayout());
+        setLayout(gb);
+        
+        GridBagConstraints gbc = new GridBagConstraints();
+        
+        gbc.anchor = GridBagConstraints.NORTHWEST;
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        gbc.gridy = GridBagConstraints.RELATIVE;
+        gbc.insets = new Insets(5,2,5,2);
         
         header = new HeaderPanel();
         navigation = new NavigationPanel();
         
-        add(header, BorderLayout.NORTH);
-        add(navigation, BorderLayout.WEST);
+        add(header, gbc);
+        
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.fill = GridBagConstraints.NONE;        
+        gbc.gridwidth = GridBagConstraints.RELATIVE;
+        add(navigation, gbc);
         
         pack();
 		

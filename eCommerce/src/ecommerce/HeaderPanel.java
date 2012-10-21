@@ -15,6 +15,7 @@
  */
 package ecommerce;
 
+import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
@@ -76,13 +77,27 @@ public class HeaderPanel extends JPanel
             }
         });
         
+        GridBagLayout gb = new GridBagLayout();
+        
+        //Set layout of panel
+        setLayout(gb);
+        
+        GridBagConstraints gbc = new GridBagConstraints();
+        
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.fill = GridBagConstraints.WEST;
+        //gbc.gridwidth = GridBagConstraints.RELATIVE;
+        //gbc.gridy = GridBagConstraints.RELATIVE;
+        gbc.insets = new Insets(5,2,5,2);
+        
         //Add controls to panel
-        add(logoLabel);
-        add(registerButton);
-        add(signInOutButton);
-        add(searchField);
-        add(searchButton);
-        add(cartButton);
+        add(logoLabel, gbc);
+        add(registerButton, gbc);
+        add(signInOutButton, gbc);
+        add(searchField, gbc);
+        add(searchButton, gbc);
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        add(cartButton, gbc);
         
     }
     
