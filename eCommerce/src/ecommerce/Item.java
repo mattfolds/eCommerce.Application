@@ -1,4 +1,4 @@
-/*
+/**
  * Class: Item
  * 
  * Purpose:
@@ -20,6 +20,14 @@ public class Item {
     private String photoPath;
     private String price;
     
+    
+    /**
+     * Constructor which accepts a string array and assigns the elements of the
+     * array to specific Class fields
+     * PreCondition: object does not exist
+     * PostCondition: new object created based on input
+     * @param record String array used to build the object
+     */
     public Item(String[] record)
     {
         name = record[0];

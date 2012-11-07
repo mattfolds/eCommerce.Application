@@ -1,4 +1,4 @@
-/*
+/**
  * Class: Ecommerce
  * 
  * Purpose:
@@ -23,6 +23,12 @@ public class ECommerce extends JFrame
     public static EComData myData;
     public static User currentUser;
 
+    /**
+     * Constructor initializes the GUI and is the entry point for 
+     * user interaction
+     * PreCondition: No user interface exist
+     * PostCondition: User interface is initialized and displayed
+     */
     public ECommerce()
     {
         myData = new EComData();
@@ -66,6 +72,11 @@ public class ECommerce extends JFrame
         
     }
     
+    /**
+     * Main entry point called at execution of the application
+     * PreCondition: None
+     * PostCondition: Created ECommerce object for GUI display
+     */    
     public static void main(String[] args) {
         
         

@@ -105,7 +105,8 @@ public class HeaderPanel extends JPanel
      * Method called by SignInOutButton when clicked and a user is not currently
      * signed in.  The method displays the SignInPanel for the user to enter
      * their credentials
-     * 
+     * PreCondition: SignIn Form is not displayed
+     * PostCondition: SignIn Form is displayed to user
      */
     private static void displaySignInForm()
     {
@@ -116,7 +117,8 @@ public class HeaderPanel extends JPanel
     /**
      * Method called by SignInPanel to close the SignIn Form when the user is
      * presses the cancel key.
-     * 
+     * PreCondition: Request to close the SignIn form
+     * PostCondition: SignIn Form is closed
      */
     public static void closeSignInForm()
     {
@@ -127,7 +129,8 @@ public class HeaderPanel extends JPanel
      * Method called by SignInPanel to close the SignInForm when the user is
      * validated.  This method is also responsible to setting the global
      * variable for the current user that is signed in.
-     * 
+     * PreCondition: User is validated close the form
+     * PostCondition: SignIn Form is closed and current user is set
      * @param myUser Instance of User class of the current user signed in
      */
     public static void closeSignInForm(User myUser)
@@ -142,7 +145,8 @@ public class HeaderPanel extends JPanel
     /**
      * Method called by registerButton ActionListener to display the new user 
      * register form.
-     * 
+     * PreCondition: New user register Form is not displayed
+     * PostCondition: New user register Form is displayed to user
      */   
     private void displayRegisterForm()
     {
@@ -153,7 +157,8 @@ public class HeaderPanel extends JPanel
     /**
      * Method called by SignInPanel to close the new user 
      * register form when cancel button is clicked
-     * 
+     * PreCondition: New user register Form is canceled
+     * PostCondition: New user register Form is closed
      */ 
     public static void closeRegisterForm()
     {
@@ -163,9 +168,9 @@ public class HeaderPanel extends JPanel
     /**
      * Method called by SignInPanel to close the new user register form when ok
      * button is clicked and to call user SignIn method
-     * 
+     * PreCondition: New user register Form is validated current user is set
+     * PostCondition: New user register Form is closed
      * @param newUser Instance of User class of the newly registered user
-     * 
      */ 
     public static void closeRegisterForm(User newUser)
     {
@@ -179,6 +184,8 @@ public class HeaderPanel extends JPanel
     /**
      * Method called by closeSignInForm and closeRegisterForm to change the text
      * of the sign-in button to sign-out
+     * PreCondition: User signed in
+     * PostCondition: Change SignIn button text to sign out
      */     
     private static void userSignIn()
     {
@@ -189,6 +196,8 @@ public class HeaderPanel extends JPanel
      * Method called by SignInOutButton when clicked and a user is signed in.
      * The method clears the currentUser GLOBAL variable and sets text on the
      * sign-out button to sign-in.
+     * PreCondition: User has signed out
+     * PostCondition: Change SignIn button text to sign in null current user
      */  
     private static void userSignOut()
     {

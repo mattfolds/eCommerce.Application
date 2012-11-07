@@ -1,8 +1,8 @@
-/*
+/**
  * Class: RegisterPanel
  * 
  * Purpose:
- * Creates the signin panel which displays the form for sign-in
+ * Creates the sign in panel which displays the form for sign-in
  * 
  * Change Log:
  * Matt Folds 10/20/12 - Initial Development
@@ -10,10 +10,10 @@
  */
 package ecommerce;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.mail.internet.*;
+import javax.swing.*;
 
 public class RegisterPanel extends JFrame
 {
@@ -39,7 +39,9 @@ public class RegisterPanel extends JFrame
     private EComData registerData = ECommerce.myData;
     private User newUser;
     
-    //Constructor
+    /**
+     * Constructor for building the registration form.
+     */
     public RegisterPanel()
     {        
         //Set window title
@@ -151,6 +153,12 @@ public class RegisterPanel extends JFrame
         setVisible(true);
     }
     
+    /**
+     * Method to register the new user when the OK button is clicked
+     * PreCondition: User is not registered
+     * PostCondition: User is registered, if fails specific error is prompted to
+     * the user.
+     */
     private void register()
     {
         newUser = new User();
@@ -208,6 +216,13 @@ public class RegisterPanel extends JFrame
         
     }
     
+    /**
+     * Method to validate the users e-mail meets specific criteria
+     * PreCondition: Need to validate an e-mail address for correctness
+     * PostCondition: Validation complete and results returned in boolean
+     * @param email String of the e-mail to validate
+     * @return True if the e-mail is valid false if not
+     */
     public boolean validateEmail(String email)
     {
         boolean result = true;

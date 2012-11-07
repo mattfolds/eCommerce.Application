@@ -1,4 +1,4 @@
-/*
+/**
  * Class: NavigationPanel
  * 
  * Purpose:
@@ -10,9 +10,8 @@
  */
 package ecommerce;
 
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import javax.swing.*;
 
 public class NavigationPanel extends JPanel
 {
@@ -31,6 +30,11 @@ public class NavigationPanel extends JPanel
     private Color backGround;
     private Color btnBackGround;
     
+    /**
+     * Constructor which builds the controls for the user to interact with the 
+     * navigation panel
+     * Called when application is executed 
+     */
     public NavigationPanel()
     {
         //Setup customer colors

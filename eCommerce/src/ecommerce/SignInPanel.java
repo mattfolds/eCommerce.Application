@@ -1,8 +1,8 @@
-/*
+/**
  * Class: NavigationPanel
  * 
  * Purpose:
- * Creates the signin panel which displays the form for sign-in
+ * Creates the sign in panel which displays the form for sign-in
  * 
  * Change Log:
  * Matt Folds 10/18/12 - Initial Development
@@ -13,9 +13,9 @@
  */
 package ecommerce;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import javax.swing.*;
 
 public class SignInPanel extends JFrame
 {
@@ -33,7 +33,9 @@ public class SignInPanel extends JFrame
     
     private EComData signInData = ECommerce.myData;
     
-    //Constructor
+    /**
+     * Constructor for building the panel to host the sign in controls
+     */
     public SignInPanel()
     {        
         //Set window title
@@ -121,7 +123,11 @@ public class SignInPanel extends JFrame
         
     }
     
-    //Method to sign into the application
+    /**
+     * Method to sign into the application
+     * Precondition: User not signed in
+     * Postcondition: If validated the user is signed into the application
+     */
     private void signIn()
     {
         //Reset labels

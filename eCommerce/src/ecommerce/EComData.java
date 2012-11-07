@@ -1,4 +1,4 @@
-/*
+/**
  * Class: EComData
  * 
  * Purpose:
@@ -40,8 +40,10 @@ public class EComData {
     private Iterator<Item> itemIter;
     private Iterator<Review> reviewIter;
     
-    /*
+    /**
      * Constructor to initialize data
+     * PreCondition: Class fields are not initialized
+     * Postcondition: Class field are initialized
      */
     public EComData()
     {
@@ -56,10 +58,15 @@ public class EComData {
         
     }
     
-    /* 
+    /**
      * Method to read a file and parse it by it's delimeter
      * and store results into a data structure to be parsed by the 
      * application
+     * PreCondition: File that is passed to the method is not resident in memory
+     * PostCondition: All records in file now resided in memory and can be ref
+     * from a linked list.
+     * @param fileName The name of the file that is to be read
+     * @return A LinkedList of all records in the file that was read
      */
     private LinkedList readFile(String fileName)
     {
@@ -141,8 +148,16 @@ public class EComData {
         return elements;
     }
     
-    //Method to query based on email and return the specific record
-    //in the form of a User object
+    /**
+     * Method to query based on email and return the specific record
+     * in the form of a User object
+     * PreCondition: Calling application needs to locate a specific record in
+     * memory
+     * Postcondition: Record is found and returned to calling method or record
+     * is not found and calling method is notified by return null
+     * @param email The email of the record searched for
+     * @return A User object, if null the record was not found
+     */
     public User queryUserData(String email)
     {
         User myUser;
@@ -161,8 +176,16 @@ public class EComData {
         return null;
     }
 
-    //Method to query based on itemName and return the specific record
-    //in the form of a item object
+    /**
+     * Method to query based on itemName and return the specific record
+     * in the form of a Item object
+     * PreCondition: Calling application needs to locate a specific record in
+     * memory
+     * Postcondition: Record is found and returned to calling method or record
+     * is not found and calling method is notified by return null
+     * @param itemName The item name of the record searched for
+     * @return A Item object, if null the record was not found
+     */
     public Item queryItemData(String itemName)
     {
         Item myItem;
@@ -181,9 +204,15 @@ public class EComData {
         return null;
     }
 
-    /*
-     *Method to query based on itemName and return a linked list of
-     *review objects associated with the item
+    /**
+     * Method to query based on itemName and return the specific record
+     * in the form of a LinkedList containing reviews
+     * PreCondition: Calling application needs to locate a specific record in
+     * memory to return reviews
+     * Postcondition: Record is found and returned to calling method or record
+     * is not found and calling method is notified by return null
+     * @param itemName The item name of the record searched for
+     * @return A LinkedList containing all item reviews for the item queried.
      */
     public LinkedList queryReviewData(String itemName)
     {
@@ -204,10 +233,18 @@ public class EComData {
         return itemReviews;
     }
     
-    /*
+    /**
      * Method to write new records to the data files.  The method accepts a 
      * record and a type.  The type will determine which file is written to.
-    */
+     * PreCondition: New records exist in memory but need to be written
+     * to disk to preserve the changes long term
+     * Postcondition: Record is written to the file for the first time
+     * @param record The object being written to the file
+     * @param recType The type of record to write (user, item, or review)
+     * @throws EComException Exception for invalid record type or if the record
+     * already exist in the file.
+     * @throws IOException If an input or output exception occurred
+     */
     public void writeRecord(Object record, String recType) throws EComException
     {
         //Define writer
@@ -328,12 +365,19 @@ public class EComData {
         }
     }
     
-    /*
+    /**
      * Method to delete records from the data files.  The method accepts a 
      * record and a type.  The type will determine which file to delete the 
      * record from.  The method to delete builds an identical file without the
      * record that is to be deleted and renames it to the original file name.
-    */
+     * PreCondition: A record has changed or needs to be purged from the data
+     * file
+     * Postcondition: Record is deleted from the file
+     * @param record The object being deleted from the file
+     * @param recType The type of record to delete (user, item, or review)
+     * @throws EComException Exception for invalid record type or if the record
+     * @throws IOException If an input or output exception occurred
+     */
     public boolean deleteRecord(Object record, String recType) 
             throws EComException
     {
@@ -525,19 +569,34 @@ public class EComData {
         return false;
     }
     
-    //Access to complete user Linked List
+     /**
+     * Method to return the private userData class field
+     * PreCondition: Calling methods need the complete userData object
+     * Postcondition: userData object is returned
+     * @return userData object is returned
+     */
     public LinkedList getUserData()
     {
         return userData;
     }
     
-    //Access to complete item Linked List
+     /**
+     * Method to return the private itemData class field
+     * PreCondition: Calling methods need the complete itemData object
+     * Postcondition: itemData object is returned
+     * @return itemData object is returned
+     */
     public LinkedList getItemData()
     {
         return itemData;
     }
 
-    //Access to complete review Linked List
+     /**
+     * Method to return the private reviewData class field
+     * PreCondition: Calling methods need the complete reviewData object
+     * Postcondition: reviewData object is returned
+     * @return reviewData object is returned
+     */
     public LinkedList getReviewData()
     {
         return reviewData;
