@@ -10,75 +10,29 @@
  */
 package ecommerce;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.mail.internet.*;
-import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.swing.JOptionPane;
 
-public class RegisterPanel extends JFrame
-{
-    private JLabel emailLbl;
-    private JLabel passwordLbl;
-    private JLabel password2Lbl;
-    private JLabel passwordHintLbl;
-    private JLabel fNameLbl;
-    private JLabel lNameLbl;
-    
-    private JLabel title;
-    
-    private JTextField emailTxt;
-    private JTextField passwordTxt;
-    private JTextField password2Txt;
-    private JTextField passwordHintTxt;
-    private JTextField fNameTxt;
-    private JTextField lNameTxt;
-    
-    private JButton okBtn;
-    private JButton cancelBtn;
-    
-    private EComData registerData = ECommerce.myData;
+/**
+ *
+ * @author Matt
+ */
+public class RegisterPanel extends javax.swing.JPanel {
+
+    /**
+     * Creates new form RegisterPanel
+     */
+    private EComData registerData;
     private User newUser;
     
-    /**
-     * Constructor for building the registration form.
-     */
-    public RegisterPanel()
-    {        
-        //Set window title
-        setTitle("Register New User");
+    public RegisterPanel() {
+        initComponents();
         
-        //Set close operation for X button
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        registerData = ECommerce.myData;
         
-        //Create panel to hold controls
-        JPanel container = new JPanel();
-        
-        GridBagLayout gb = new GridBagLayout();
-        
-        //Set layout of panel
-        container.setLayout(gb);
-        
-        //Create controls
-        title = new JLabel("User Registration Form");
-        
-        emailLbl = new JLabel("E-Mail:");
-        passwordLbl = new JLabel("Password:");
-        password2Lbl = new JLabel("Confirm Password:");
-        passwordHintLbl = new JLabel("Password Hint:");
-        fNameLbl = new JLabel("First Name:");
-        lNameLbl = new JLabel("Last Name:");
-
-        emailTxt = new JTextField("",20);
-        passwordTxt = new JTextField("",20);
-        password2Txt = new JTextField("",20);
-        passwordHintTxt = new JTextField("",20);
-        fNameTxt = new JTextField("",20);
-        lNameTxt = new JTextField("",20);
-        
-        okBtn = new JButton("OK");
-        cancelBtn = new JButton("Cancel");
-        
-        //Handle okBtn click
         okBtn.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
@@ -95,65 +49,9 @@ public class RegisterPanel extends JFrame
                 HeaderPanel.closeRegisterForm();
             }
         });
-        
-        //Configure layout control
-        GridBagConstraints gbc = new GridBagConstraints();
-        
-        gbc.anchor = GridBagConstraints.NORTH;
-        gbc.gridwidth = GridBagConstraints.REMAINDER;
-        gbc.insets = new Insets(10,10,10,10);
-        
-        container.add(title, gbc);        
-        
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.fill = GridBagConstraints.NONE;
-        gbc.gridwidth = GridBagConstraints.RELATIVE;
-        gbc.gridy = GridBagConstraints.RELATIVE;
-        gbc.insets = new Insets(5,2,5,2);
-        
-        gbc.gridwidth = GridBagConstraints.RELATIVE;
-        container.add(emailLbl, gbc);
-        gbc.gridwidth = GridBagConstraints.REMAINDER;
-        container.add(emailTxt, gbc);
-        
-        gbc.gridwidth = GridBagConstraints.RELATIVE;
-        container.add(passwordLbl, gbc);
-        gbc.gridwidth = GridBagConstraints.REMAINDER;
-        container.add(passwordTxt, gbc);
-        
-        gbc.gridwidth = GridBagConstraints.RELATIVE;
-        container.add(password2Lbl, gbc);
-        gbc.gridwidth = GridBagConstraints.REMAINDER;
-        container.add(password2Txt, gbc);
-        
-        gbc.gridwidth = GridBagConstraints.RELATIVE;
-        container.add(passwordHintLbl, gbc);
-        gbc.gridwidth = GridBagConstraints.REMAINDER;
-        container.add(passwordHintTxt, gbc);
-        
-        gbc.gridwidth = GridBagConstraints.RELATIVE;
-        container.add(fNameLbl, gbc);
-        gbc.gridwidth = GridBagConstraints.REMAINDER;
-        container.add(fNameTxt, gbc);
-        
-        gbc.gridwidth = GridBagConstraints.RELATIVE;
-        container.add(lNameLbl, gbc);
-        gbc.gridwidth = GridBagConstraints.REMAINDER;
-        container.add(lNameTxt, gbc);
-        
-        gbc.gridwidth = GridBagConstraints.RELATIVE;
-        container.add(okBtn, gbc);
-        gbc.gridwidth = GridBagConstraints.REMAINDER;
-        container.add(cancelBtn, gbc);
-        
-        add(container);
-        
-        pack();
-        
-        setVisible(true);
     }
     
-    /**
+        /**
      * Method to register the new user when the OK button is clicked
      * PreCondition: User is not registered
      * PostCondition: User is registered, if fails specific error is prompted to
@@ -234,4 +132,188 @@ public class RegisterPanel extends JFrame
         }
         return result;
     }
+    
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        okBtn = new javax.swing.JButton();
+        cancelBtn = new javax.swing.JButton();
+        titleLbl = new javax.swing.JLabel();
+        emailLbl = new javax.swing.JLabel();
+        passwordLbl = new javax.swing.JLabel();
+        Password2Lbl = new javax.swing.JLabel();
+        PasswordHintLbl = new javax.swing.JLabel();
+        fNameLbl = new javax.swing.JLabel();
+        emailTxt = new javax.swing.JTextField();
+        passwordTxt = new javax.swing.JTextField();
+        password2Txt = new javax.swing.JTextField();
+        passwordHintTxt = new javax.swing.JTextField();
+        fNameTxt = new javax.swing.JTextField();
+        lNameTxt = new javax.swing.JTextField();
+        lNameLbl = new javax.swing.JLabel();
+        javax.swing.JLabel errorLbl = new javax.swing.JLabel();
+
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        okBtn.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        okBtn.setText("OK");
+
+        cancelBtn.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        cancelBtn.setText("Cancel");
+
+        titleLbl.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        titleLbl.setText("User Registration Form");
+
+        emailLbl.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        emailLbl.setText("Email:");
+
+        passwordLbl.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        passwordLbl.setText("Password:");
+
+        Password2Lbl.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        Password2Lbl.setText("Confirm Password:");
+
+        PasswordHintLbl.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        PasswordHintLbl.setText("Password Hint");
+        PasswordHintLbl.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        fNameLbl.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        fNameLbl.setText("First Name:");
+        fNameLbl.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        emailTxt.setColumns(20);
+        emailTxt.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        emailTxt.setToolTipText("");
+
+        passwordTxt.setColumns(20);
+        passwordTxt.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        passwordTxt.setToolTipText("");
+
+        password2Txt.setColumns(20);
+        password2Txt.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        password2Txt.setToolTipText("");
+
+        passwordHintTxt.setColumns(20);
+        passwordHintTxt.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        passwordHintTxt.setToolTipText("");
+
+        fNameTxt.setColumns(20);
+        fNameTxt.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        fNameTxt.setToolTipText("");
+
+        lNameTxt.setColumns(20);
+        lNameTxt.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        lNameTxt.setToolTipText("");
+
+        lNameLbl.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        lNameLbl.setText("Last Name:");
+        lNameLbl.setToolTipText("");
+        lNameLbl.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        errorLbl.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        errorLbl.setForeground(new java.awt.Color(255, 0, 0));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(PasswordHintLbl)
+                            .addComponent(lNameLbl)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(Password2Lbl)
+                                        .addComponent(passwordLbl)
+                                        .addComponent(fNameLbl))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(fNameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(passwordTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(password2Txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(passwordHintTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(lNameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(okBtn)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(cancelBtn))))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(emailLbl)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(emailTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(196, 196, 196)
+                        .addComponent(errorLbl)))
+                .addContainerGap(98, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(titleLbl)
+                .addGap(108, 108, 108))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(titleLbl)
+                .addGap(18, 18, 18)
+                .addComponent(errorLbl)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(emailLbl)
+                    .addComponent(emailTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(passwordLbl)
+                    .addComponent(passwordTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Password2Lbl)
+                    .addComponent(password2Txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(PasswordHintLbl)
+                    .addComponent(passwordHintTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(fNameLbl)
+                    .addComponent(fNameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lNameLbl)
+                    .addComponent(lNameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(okBtn)
+                    .addComponent(cancelBtn))
+                .addGap(31, 31, 31))
+        );
+    }// </editor-fold>//GEN-END:initComponents
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Password2Lbl;
+    private javax.swing.JLabel PasswordHintLbl;
+    private javax.swing.JButton cancelBtn;
+    private javax.swing.JLabel emailLbl;
+    private javax.swing.JTextField emailTxt;
+    private javax.swing.JLabel fNameLbl;
+    private javax.swing.JTextField fNameTxt;
+    private javax.swing.JLabel lNameLbl;
+    private javax.swing.JTextField lNameTxt;
+    private javax.swing.JButton okBtn;
+    private javax.swing.JTextField password2Txt;
+    private javax.swing.JTextField passwordHintTxt;
+    private javax.swing.JLabel passwordLbl;
+    private javax.swing.JTextField passwordTxt;
+    private javax.swing.JLabel titleLbl;
+    // End of variables declaration//GEN-END:variables
 }

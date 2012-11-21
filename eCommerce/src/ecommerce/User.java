@@ -19,6 +19,7 @@ public class User {
     private String passwordHint;
     private String fName;
     private String lName;
+    private String admin;
     
     public User()
     {
@@ -39,6 +40,7 @@ public class User {
         passwordHint = record[2];
         fName = record[3];
         lName = record[4];
+        admin = record[5];
     }
     
     public String getEmail()
@@ -66,6 +68,11 @@ public class User {
         return lName;
     }
     
+    public String getAdmin()
+    {
+        return admin;
+    }
+    
     public void setEmail(String myEmail)
     {
         email = myEmail;
@@ -91,10 +98,15 @@ public class User {
         lName = myLName;
     }
     
+    public void setAdmin(String myAdmin)
+    {
+        email = myAdmin;
+    }
+    
     public String toCSVString()
     {
         return email + "," + password + "," + passwordHint + "," + 
-                fName + "," + lName;
+                fName + "," + lName + "," + admin;
     }
     
 }

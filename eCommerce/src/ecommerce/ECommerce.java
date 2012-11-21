@@ -4,6 +4,9 @@
  */
 package ecommerce;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 /**
  *
  * @author Matt
@@ -20,15 +23,43 @@ public class ECommerce extends javax.swing.JFrame {
      * Creates new form EComm
      */
     public ECommerce() {
-        initComponents();
-        
         myData = new EComData();
+        
+        initComponents();
         
         //Application Title
         setTitle("ECommerce Application");
         
         setResizable(false);
+        
+        adminBtn.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                adminConsole();
+            }
+        });
     }
+    
+    public static void enableAdmin()
+    {
+        adminBtn.setVisible(true);
+        adminBtn.setEnabled(true);
+    }
+    
+    public static void signout()
+    {
+        adminBtn.setVisible(false);
+        adminBtn.setEnabled(false);
+        adminPanel1.setVisible(false);
+        itemPanel2.setVisible(false);
+    }
+    
+    private void adminConsole()
+    {
+        adminPanel1.setVisible(true);
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -41,29 +72,56 @@ public class ECommerce extends javax.swing.JFrame {
 
         navigationPanel1 = new ecommerce.NavigationPanel();
         headerPanel1 = new ecommerce.HeaderPanel();
-        itemPanel1 = new ecommerce.ItemPanel();
+        jLayeredPane1 = new javax.swing.JLayeredPane();
+        signInPanel1 = new ecommerce.SignInPanel();
+        registerPanel1 = new ecommerce.RegisterPanel();
+        adminPanel1 = new ecommerce.AdminPanel();
+        adminBtn = new javax.swing.JButton();
+        itemPanel2 = new ecommerce.ItemPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        signInPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        signInPanel1.setBounds(220, 150, 436, 184);
+        jLayeredPane1.add(signInPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        //Hide form
+        signInPanel1.setVisible(false);
+
+        registerPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        registerPanel1.setBounds(210, 80, 454, 377);
+        jLayeredPane1.add(registerPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        registerPanel1.setVisible(false);
+        adminPanel1.setBounds(10, 10, 850, 530);
+        jLayeredPane1.add(adminPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        adminPanel1.setVisible(false);
+
+        adminBtn.setText("Admin");
+        adminBtn.setBounds(10, 560, 90, 40);
+        jLayeredPane1.add(adminBtn, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        adminBtn.setVisible(false);
+        adminBtn.setEnabled(false);
+
+        itemPanel2.setName(""); // NOI18N
+        itemPanel2.setBounds(10, 10, 850, 580);
+        jLayeredPane1.add(itemPanel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        itemPanel2.setVisible(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(headerPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 868, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jLayeredPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(headerPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 868, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(itemPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(headerPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(itemPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 593, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jLayeredPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 604, Short.MAX_VALUE))
         );
 
         pack();
@@ -104,8 +162,13 @@ public class ECommerce extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public static javax.swing.JButton adminBtn;
+    public static ecommerce.AdminPanel adminPanel1;
     private ecommerce.HeaderPanel headerPanel1;
-    private ecommerce.ItemPanel itemPanel1;
+    public static ecommerce.ItemPanel itemPanel2;
+    private javax.swing.JLayeredPane jLayeredPane1;
     private ecommerce.NavigationPanel navigationPanel1;
+    public static ecommerce.RegisterPanel registerPanel1;
+    public static ecommerce.SignInPanel signInPanel1;
     // End of variables declaration//GEN-END:variables
 }

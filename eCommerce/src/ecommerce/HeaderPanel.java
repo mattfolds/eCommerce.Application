@@ -21,7 +21,6 @@ import javax.swing.*;
 public class HeaderPanel extends JPanel {
 
     
-    private static SignInPanel signIn;
     private static RegisterPanel register;
     
     /**
@@ -133,7 +132,7 @@ public class HeaderPanel extends JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cartButton;
     private javax.swing.JLabel logoLabel;
-    private javax.swing.JButton registerButton;
+    public static javax.swing.JButton registerButton;
     private javax.swing.JButton searchButton;
     private javax.swing.JTextField searchField;
     public static javax.swing.JButton signInOutButton;
@@ -148,8 +147,11 @@ public class HeaderPanel extends JPanel {
      */
     private static void displaySignInForm()
     {
+        signInOutButton.setEnabled(false);
+        registerButton.setEnabled(false);
         ECommerce.currentUser = null;
-        signIn = new SignInPanel();
+        ECommerce.signInPanel1.clearForm();
+        ECommerce.signInPanel1.setVisible(true);
     }
     
     /**
@@ -160,7 +162,9 @@ public class HeaderPanel extends JPanel {
      */
     public static void closeSignInForm()
     {
-        signIn.dispose();   
+        signInOutButton.setEnabled(true);
+        registerButton.setEnabled(true);
+        ECommerce.signInPanel1.setVisible(false);  
     }
     
     /**
@@ -173,9 +177,16 @@ public class HeaderPanel extends JPanel {
      */
     public static void closeSignInForm(User myUser)
     {
+        signInOutButton.setEnabled(true);
+        registerButton.setEnabled(false);        
         ECommerce.currentUser = myUser;
         
-        signIn.dispose();
+        if (myUser.getAdmin().equals("true"))
+        {
+            ECommerce.enableAdmin();
+        }
+        
+        ECommerce.signInPanel1.setVisible(false); 
         
         userSignIn();        
     }
@@ -188,8 +199,10 @@ public class HeaderPanel extends JPanel {
      */   
     private void displayRegisterForm()
     {
+        signInOutButton.setEnabled(false);
+        registerButton.setEnabled(false);        
         ECommerce.currentUser = null;
-        register = new RegisterPanel();
+        ECommerce.registerPanel1.setVisible(true);
     }
     
     /**
@@ -200,7 +213,9 @@ public class HeaderPanel extends JPanel {
      */ 
     public static void closeRegisterForm()
     {
-        register.dispose();
+        signInOutButton.setEnabled(true);
+        registerButton.setEnabled(true);
+        ECommerce.registerPanel1.setVisible(false);
     }    
     
     /**
@@ -212,9 +227,12 @@ public class HeaderPanel extends JPanel {
      */ 
     public static void closeRegisterForm(User newUser)
     {
+        
+        signInOutButton.setEnabled(true);
+        registerButton.setEnabled(false);        
         ECommerce.currentUser = newUser;
         
-        register.dispose();
+        ECommerce.registerPanel1.setVisible(false);
         
         userSignIn();
     }
@@ -240,8 +258,9 @@ public class HeaderPanel extends JPanel {
     private static void userSignOut()
     {
         ECommerce.currentUser = null;
-        
+        registerButton.setEnabled(true);        
         signInOutButton.setText("Sign In");
+        ECommerce.signout();
     }
     
 }
