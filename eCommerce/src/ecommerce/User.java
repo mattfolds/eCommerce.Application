@@ -11,6 +11,8 @@
  */
 package ecommerce;
 
+import java.util.Objects;
+
 
 public class User {
     
@@ -100,7 +102,38 @@ public class User {
     
     public void setAdmin(String myAdmin)
     {
-        email = myAdmin;
+        admin = myAdmin;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 17 * hash + Objects.hashCode(this.email);
+        hash = 17 * hash + Objects.hashCode(this.password);
+        hash = 17 * hash + Objects.hashCode(this.passwordHint);
+        hash = 17 * hash + Objects.hashCode(this.fName);
+        hash = 17 * hash + Objects.hashCode(this.lName);
+        hash = 17 * hash + Objects.hashCode(this.admin);
+        return hash;
+    }
+    
+    @Override
+    public boolean equals(Object obj)
+    {
+        User compare = (User)obj;
+        
+        if(this == obj)
+        {
+            return true;
+        }
+        else if(this.hashCode() == compare.hashCode())
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
     
     public String toCSVString()

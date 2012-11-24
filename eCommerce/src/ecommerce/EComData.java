@@ -130,6 +130,9 @@ public class EComData {
                 //Read the next line
                 line = myReader.readLine();
             }
+            
+            myReader.close();
+            myFile.close();
         }
         //If the file does not exist throw dialog message
         catch(FileNotFoundException e)
@@ -271,8 +274,8 @@ public class EComData {
                 //If a duplicate was not found write the record
                 if(testUser == null)
                 {
-                    myWriter.newLine();
                     myWriter.write(myUser.toCSVString());
+                    myWriter.newLine();
                     myWriter.close();
                 }
                 
@@ -289,8 +292,10 @@ public class EComData {
             {
                 JOptionPane.showMessageDialog(null, "Caught IOException:" +
                     e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);                
-            }         
+            }
             
+            userData = readFile(userFile);
+           
         }
         
         //Test for item record
@@ -330,7 +335,10 @@ public class EComData {
             {
                 JOptionPane.showMessageDialog(null, "Caught IOException:" +
                     e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);                
-            }              
+            }
+            
+            itemData = readFile(itemFile);
+
         }
         
         //Test for review record
@@ -355,7 +363,9 @@ public class EComData {
             {
                 JOptionPane.showMessageDialog(null, "Caught IOException:" +
                     e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);                
-            }              
+            }
+            
+            reviewData = readFile(reviewFile);
         }
         
         //Invalid record type throw error
@@ -424,13 +434,35 @@ public class EComData {
                     
                     //Write record to temp file
                     myWriter.write(currentRecord);
+                    myWriter.newLine();
                 }
                 
                 //Close File handles
                 myReader.close();
                 myWriter.close();
                 
-                boolean successful = myTmpFile.renameTo(myFile);
+                myFile.delete();
+                
+                int maxRetry = 60;
+                boolean successful = false;
+                
+                while(maxRetry > 0)
+                {
+                    if(successful = myTmpFile.renameTo(myFile))
+                    {
+                        break;
+                    }
+                    try
+                    {
+                        Thread.sleep(1000);
+                    }
+                    catch(InterruptedException e)
+                    {
+                        
+                    }
+                }
+                
+                userData = readFile(userFile);
                 
                 //Return status
                 return successful;
@@ -442,7 +474,9 @@ public class EComData {
             {
                 JOptionPane.showMessageDialog(null, "Caught IOException:" +
                     e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);                
-            }         
+            }
+            
+            
             
         }
         
@@ -482,13 +516,35 @@ public class EComData {
                     
                     //Write record to temp file
                     myWriter.write(currentRecord);
+                    myWriter.newLine();
                 }
                 
                 //Close File handles
                 myReader.close();
                 myWriter.close();
                 
-                boolean successful = myTmpFile.renameTo(myFile);
+                myFile.delete();
+                
+                int maxRetry = 60;
+                boolean successful = false;
+                
+                while(maxRetry > 0)
+                {
+                    if(successful = myTmpFile.renameTo(myFile))
+                    {
+                        break;
+                    }
+                    try
+                    {
+                        Thread.sleep(1000);
+                    }
+                    catch(InterruptedException e)
+                    {
+                        
+                    }
+                }
+                
+                itemData = readFile(itemFile);
                 
                 //Return status
                 return successful;
@@ -501,6 +557,9 @@ public class EComData {
                 JOptionPane.showMessageDialog(null, "Caught IOException:" +
                     e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);                
             }
+            
+            
+
         }
         
         //Test for review record
@@ -539,13 +598,35 @@ public class EComData {
                     
                     //Write record to temp file
                     myWriter.write(currentRecord);
+                    myWriter.newLine();
                 }
                 
                 //Close File handles
                 myReader.close();
                 myWriter.close();
                 
-                boolean successful = myTmpFile.renameTo(myFile);
+                myFile.delete();
+                
+                int maxRetry = 60;
+                boolean successful = false;
+                
+                while(maxRetry > 0)
+                {
+                    if(successful = myTmpFile.renameTo(myFile))
+                    {
+                        break;
+                    }
+                    try
+                    {
+                        Thread.sleep(1000);
+                    }
+                    catch(InterruptedException e)
+                    {
+                        
+                    }
+                }
+                
+                reviewData = readFile(reviewFile);
                 
                 //Return status
                 return successful;
@@ -558,6 +639,276 @@ public class EComData {
                 JOptionPane.showMessageDialog(null, "Caught IOException:" +
                     e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);                
             }
+            
+            
+        }
+        
+        //Invalid record type throw error
+        else
+        {
+            throw new EComException("Invalid recType!");
+        }
+        
+        return false;
+    }
+    
+    public boolean updateRecord(Object record, String recType) 
+            throws EComException
+    {
+        //Define writer
+        File myTmpFile;
+        BufferedWriter myWriter;
+        
+        //Define Reader
+        File myFile;
+        BufferedReader myReader;
+        
+        //Test for user record
+        if(recType.equals("user"))
+        {
+            //Cast record in User object
+            User myUser = (User)record;
+
+            try
+            {
+                //Initialize the writer
+                myTmpFile = new File(tmpFile);
+                myWriter = new BufferedWriter(new FileWriter(myTmpFile));
+                
+                //Initialize the reader
+                myFile = new File(userFile);
+                myReader = new BufferedReader(new FileReader(myFile));
+                
+                //Get the key of the record to update
+                String recordToUpdate = myUser.getEmail();
+                
+                String currentRecord;
+                
+                //Read until the end of the file
+                while((currentRecord = myReader.readLine()) != null)
+                {
+                    //Parse line into String array
+                    String[] tokens = currentRecord.split(",");
+                    
+                    //If the line matches the record to update write it
+                    if(tokens[0].equals(recordToUpdate))
+                    {
+                        myWriter.write(myUser.toCSVString());
+                        myWriter.newLine();
+                        continue;
+                    }
+                    
+                    //Write record to temp file
+                    myWriter.write(currentRecord);
+                    myWriter.newLine();
+                }
+                
+                //Close File handles
+                myReader.close();
+                myWriter.close();
+                
+                myFile.delete();
+                
+                int maxRetry = 60;
+                boolean successful = false;
+                
+                while(maxRetry > 0)
+                {
+                    if(successful = myTmpFile.renameTo(myFile))
+                    {
+                        break;
+                    }
+                    try
+                    {
+                        Thread.sleep(1000);
+                    }
+                    catch(InterruptedException e)
+                    {
+                        
+                    }
+                }
+                
+                userData = readFile(userFile);
+                
+                //Return status
+                return successful;
+
+            }
+            
+            //Catch any IO exceptions
+            catch(IOException e)
+            {
+                JOptionPane.showMessageDialog(null, "Caught IOException:" +
+                    e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);                
+            }
+            
+        }
+        
+        //Test for item record
+        else if(recType.equals("item"))
+        {
+            //Cast record in Item object
+            Item myItem = (Item)record;
+            
+            try
+            {
+                //Initialize the writer
+                myTmpFile = new File(tmpFile);
+                myWriter = new BufferedWriter(new FileWriter(myTmpFile));
+                
+                //Initialize the reader
+                myFile = new File(itemFile);
+                myReader = new BufferedReader(new FileReader(myFile));
+                
+                //Get the key of the record to update
+                String recordToUpdate = myItem.getName();
+                
+                String currentRecord;
+                
+                //Read until the end of the file
+                while((currentRecord = myReader.readLine()) != null)
+                {
+                    //Parse line into String array
+                    String[] tokens = currentRecord.split(",");
+                    
+                    //If the line matches the record to update
+                    //write it to the temp file
+                    if(tokens[0].equals(recordToUpdate))
+                    {
+                        myWriter.write(myItem.toCSVString());
+                        myWriter.newLine();
+                        continue;
+                    }
+                    
+                    //Write record to temp file
+                    myWriter.write(currentRecord);
+                    myWriter.newLine();
+                }
+                
+                //Close File handles
+                myReader.close();
+                myWriter.close();
+                
+                myFile.delete();
+                
+                int maxRetry = 60;
+                boolean successful = false;
+                
+                while(maxRetry > 0)
+                {
+                    if(successful = myTmpFile.renameTo(myFile))
+                    {
+                        break;
+                    }
+                    try
+                    {
+                        Thread.sleep(1000);
+                    }
+                    catch(InterruptedException e)
+                    {
+                        
+                    }
+                }
+                
+                itemData = readFile(itemFile);
+                
+                //Return status
+                return successful;
+
+            }
+            
+            //Catch any IO exceptions
+            catch(IOException e)
+            {
+                JOptionPane.showMessageDialog(null, "Caught IOException:" +
+                    e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);                
+            }
+            
+            
+
+        }
+        
+        //Test for review record
+        else if(recType.equals("review"))
+        {
+            //Cast record in Item object
+            Review myReview = (Review)record;
+            
+            try
+            {
+                //Initialize the writer
+                myTmpFile = new File(tmpFile);
+                myWriter = new BufferedWriter(new FileWriter(myTmpFile));
+                
+                //Initialize the reader
+                myFile = new File(reviewFile);
+                myReader = new BufferedReader(new FileReader(myFile));
+                
+                //Get the key of the record to update
+                String recordToUpdate = myReview.getReviewID();
+                
+                String currentRecord;
+                
+                //Read until the end of the file
+                while((currentRecord = myReader.readLine()) != null)
+                {
+                    //Parse line into String array
+                    String[] tokens = currentRecord.split(",");
+                    
+                    //If the line matches the record to update
+                    //write it to the temp file
+                    if(tokens[0].equals(recordToUpdate))
+                    {
+                        myWriter.write(myReview.toCSVString());
+                        myWriter.newLine();
+                        continue;
+                    }
+                    
+                    //Write record to temp file
+                    myWriter.write(currentRecord);
+                    myWriter.newLine();
+                }
+                
+                //Close File handles
+                myReader.close();
+                myWriter.close();
+                
+                myFile.delete();
+                
+                int maxRetry = 60;
+                boolean successful = false;
+                
+                while(maxRetry > 0)
+                {
+                    if(successful = myTmpFile.renameTo(myFile))
+                    {
+                        break;
+                    }
+                    try
+                    {
+                        Thread.sleep(1000);
+                    }
+                    catch(InterruptedException e)
+                    {
+                        
+                    }
+                }
+                
+                reviewData = readFile(reviewFile);
+                
+                //Return status
+                return successful;
+
+            }
+            
+            //Catch any IO exceptions
+            catch(IOException e)
+            {
+                JOptionPane.showMessageDialog(null, "Caught IOException:" +
+                    e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);                
+            }
+            
+            
         }
         
         //Invalid record type throw error
