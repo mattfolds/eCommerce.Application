@@ -206,6 +206,24 @@ public class EComData {
         
         return null;
     }
+    
+        public Review queryReviewID(String reviewID)
+    {
+        Review myReview;
+        reviewIter = reviewData.iterator();
+        
+        while(reviewIter.hasNext())
+        {
+            myReview = reviewIter.next();
+            
+            if( myReview.getName().equals(reviewID))
+            {
+                return myReview;
+            }
+        }
+        
+        return null;
+    }
 
     /**
      * Method to query based on itemName and return the specific record
@@ -319,8 +337,9 @@ public class EComData {
                 //If a duplicate was not found write the record
                 if(testItem == null)
                 {
-                    myWriter.newLine();
+                    
                     myWriter.write(myItem.toCSVString());
+                    myWriter.newLine();
                     myWriter.close();
                 }
                 //Throw error if the record already exist in the file
@@ -353,8 +372,9 @@ public class EComData {
                 myWriter = new BufferedWriter(myFile);
                 
                 //Write the review to the file
-                myWriter.newLine();
+                
                 myWriter.write(myReview.toCSVString());
+                myWriter.newLine();
                 myWriter.close();
                 
             }

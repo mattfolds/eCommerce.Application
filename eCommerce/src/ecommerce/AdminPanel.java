@@ -342,16 +342,125 @@ public class AdminPanel extends javax.swing.JPanel{
             }
         }
         
-        //importUserData();
     }
     
     public void updateItemData()
     {
+        int rowCount = jTable1.getRowCount();
+        
+        Boolean delete;
+        
+        Item myItem = new Item();
+        
+        for(int i=0; i < rowCount; i++ )
+        {
+            delete = (Boolean)jTable1.getModel().getValueAt(i, 0);
+            myItem.setName((String)jTable1.getModel().getValueAt(i, 1));
+            myItem.setDescription((String)jTable1.getModel().getValueAt(i, 2));
+            myItem.setPhotoPath((String)jTable1.getModel().getValueAt(i, 3));
+            myItem.setPrice((String)jTable1.getModel().getValueAt(i, 4));
+            
+            if(delete)
+            {
+                try
+                {
+                    adminData.deleteRecord(myItem, "item");
+                    continue;
+                }
+                catch(EComException e)
+                {
+                    
+                }
+            }
+            
+            Item existing = adminData.queryItemData(myItem.getName());
+            
+            if(existing == null)
+            {
+                try
+                {
+                    adminData.writeRecord(myItem, "item");
+                    continue;
+                }
+                catch(EComException e)
+                {
+                    
+                }
+            }
+            
+            if(!existing.equals(myItem))
+            {
+                try
+                {
+                    adminData.updateRecord(myItem, "item");
+                    continue;
+                }
+                catch(EComException e)
+                {
+                    
+                }
+            }
+        }
         
     }
     
     public void updateReviewData()
     {
+        int rowCount = jTable1.getRowCount();
+        
+        Boolean delete;
+        
+        Review myReview = new Review();
+        
+        for(int i=0; i < rowCount; i++ )
+        {
+            delete = (Boolean)jTable1.getModel().getValueAt(i, 0);
+            myReview.setReviewID((String)jTable1.getModel().getValueAt(i, 1));
+            myReview.setName((String)jTable1.getModel().getValueAt(i, 2));
+            myReview.setReviewText((String)jTable1.getModel().getValueAt(i, 3));
+            myReview.setRating((String)jTable1.getModel().getValueAt(i, 4));
+            
+            if(delete)
+            {
+                try
+                {
+                    adminData.deleteRecord(myReview, "review");
+                    continue;
+                }
+                catch(EComException e)
+                {
+                    
+                }
+            }
+            
+            Review existing = adminData.queryReviewID(myReview.getReviewID());
+            
+            if(existing == null)
+            {
+                try
+                {
+                    adminData.writeRecord(myReview, "review");
+                    continue;
+                }
+                catch(EComException e)
+                {
+                    
+                }
+            }
+            
+            if(!existing.equals(myReview))
+            {
+                try
+                {
+                    adminData.updateRecord(myReview, "review");
+                    continue;
+                }
+                catch(EComException e)
+                {
+                    
+                }
+            }
+        }
         
     }
 

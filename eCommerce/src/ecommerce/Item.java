@@ -12,6 +12,10 @@
  */
 package ecommerce;
 
+import java.util.Objects;
+
+
+
 
 public class Item {
     
@@ -20,6 +24,11 @@ public class Item {
     private String photoPath;
     private String price;
     
+    
+    public Item()
+    {
+        
+    }
     
     /**
      * Constructor which accepts a string array and assigns the elements of the
@@ -75,6 +84,36 @@ public class Item {
     public void setPrice(String myPrice)
     {
         price = myPrice;
+    }
+    
+    
+    @Override
+    public boolean equals(Object obj)
+    {
+        Item compare = (Item)obj;
+        
+        if(this == obj)
+        {
+            return true;
+        }
+        else if(this.hashCode() == compare.hashCode())
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 53 * hash + Objects.hashCode(this.name);
+        hash = 53 * hash + Objects.hashCode(this.description);
+        hash = 53 * hash + Objects.hashCode(this.photoPath);
+        hash = 53 * hash + Objects.hashCode(this.price);
+        return hash;
     }
     
     public String toCSVString()

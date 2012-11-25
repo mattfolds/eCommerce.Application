@@ -11,6 +11,8 @@
  */
 package ecommerce;
 
+import java.util.Objects;
+
 
 public class Review {
     
@@ -19,6 +21,11 @@ public class Review {
     private String reviewText;
     private String rating;
      
+    public Review()
+    {
+        
+    }
+    
     /**
      * Constructor which accepts a string array and assigns the elements of the
      * array to specific Class fields
@@ -74,6 +81,35 @@ public class Review {
     {
         rating = myRating;
     }    
+    
+    @Override
+    public boolean equals(Object obj)
+    {
+        Review compare = (Review)obj;
+        
+        if(this == obj)
+        {
+            return true;
+        }
+        else if(this.hashCode() == compare.hashCode())
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 23 * hash + Objects.hashCode(this.reviewID);
+        hash = 23 * hash + Objects.hashCode(this.name);
+        hash = 23 * hash + Objects.hashCode(this.reviewText);
+        hash = 23 * hash + Objects.hashCode(this.rating);
+        return hash;
+    }
     
     public String toCSVString()
     {
